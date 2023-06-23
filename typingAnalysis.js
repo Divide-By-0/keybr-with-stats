@@ -355,16 +355,20 @@ function calculateStats() {
     var currentTime = new Date().getTime();
     var statsHTML = "";
     var sortedChars = Object.keys(charStats).sort();
-    for (var _i = 0, sortedChars_1 = sortedChars; _i < sortedChars_1.length; _i++) {
-        var char = sortedChars_1[_i];
+    var _loop_1 = function (char) {
         var stats = charStats[char];
-        var sumTimestamps = stats.timestamps.reduce(function (a, b) {
+        var discountFactor = 0.9;
+        var weightedTimestamps = stats.timestamps.map(function (timestamp, index) {
+            return timestamp * Math.pow(discountFactor, index);
+        });
+        var sumWeightedTimestamps = weightedTimestamps.reduce(function (a, b) {
             return a + b;
         }, 0);
-        var avgTimestamps = sumTimestamps / stats.timestamps.length;
-        var avgCharsPerWord = 5;
-        var wpm = (60 * 1000) / (avgTimestamps * avgCharsPerWord);
-        console.log(avgTimestamps, avgCharsPerWord, sumTimestamps, stats.timestamps.length, wpm);
+        var normalization_constant = (Math.pow(discountFactor, weightedTimestamps.length - 1) - 1) / (discountFactor - 1);
+        var avgWeightedTimestamps = sumWeightedTimestamps / normalization_constant;
+        var avgCharsPerWord = 5; // This doesn't include the space
+        var wpm = (60 * 1000) / (avgWeightedTimestamps * avgCharsPerWord);
+        console.log(avgWeightedTimestamps, avgCharsPerWord, sumWeightedTimestamps, weightedTimestamps.length, wpm);
         var accuracy = (stats.totalCorrect / stats.totalTyped) * 100;
         var adjustedWpm = isNaN(wpm) ? 0 : Math.pow(accuracy / 100, 2) * wpm;
         var greenComponent = Math.min(255, Math.round(adjustedWpm * 2))
@@ -376,6 +380,10 @@ function calculateStats() {
         var color = "#" + redComponent + greenComponent + "00";
         console.log(greenComponent, redComponent, color);
         statsHTML += "<div style=\"color: ".concat(color, "\">").concat(char == " " ? "␣" : char, ": WPM = ").concat(adjustedWpm.toFixed(2), ", &nbsp;&nbsp; Accuracy = ").concat(accuracy.toFixed(2), "%</div>");
+    };
+    for (var _i = 0, sortedChars_1 = sortedChars; _i < sortedChars_1.length; _i++) {
+        var char = sortedChars_1[_i];
+        _loop_1(char);
     }
     var statsDiv = document.getElementById("stats");
     statsDiv.innerHTML = statsHTML;
