@@ -1,6 +1,8 @@
 # keybr-with-stats
 In &lt; 1000 lines of code, practice any dictionary and get targeted feedback and statistics per character and pair of characters, like Keybr. Right now, common Rust programming keywords are the dictionary.
 
+Demo here: https://keybr.onrender.com/
+
 ## Compile
 ```
 yarn install
