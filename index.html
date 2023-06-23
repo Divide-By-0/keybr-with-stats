@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Typing Analysis</title>
+    <style>
+      /* Set the font for the entire body */
+      body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+    
+      /* Add a container to center the content */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+    
+      /* Style the input field */
+      #input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+    
+      /* Style the div elements */
+      div {
+        margin-bottom: 10px;
+      }
+    
+      /* Style the green and red text */
+      .green {
+        color: green;
+      }
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="sentence"></div>
+      <input type="text" id="input" />
+      <div id="stats"></div>
+      <div id="missed-keys"></div>
+      <div id="missed-key-pairs"></div>
+      <script src="typingAnalysis.js"></script>
+      <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+          loadStats();
+        });
+      </script>
+    </div>
+  </body>
+</html>
