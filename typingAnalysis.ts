@@ -264,6 +264,7 @@ function updateSentence() {
 }
 
 inputElement.addEventListener("input", (event) => {
+  // requestAnimationFrame(() => {
   const currentInput = inputElement.value;
   let newInnerHTML = "";
   let errorOccurred = false;
@@ -336,6 +337,7 @@ inputElement.addEventListener("input", (event) => {
         }
       }
     }
+  // }
   }
 
   // if (errorIndex !== -1) {
@@ -402,13 +404,14 @@ function calculateStats() {
     const sumWeightedTimestamps = weightedTimestamps.reduce(function (a, b) {
       return a + b;
     }, 0);
-    let normalization_constant = (Math.pow(discountFactor, weightedTimestamps.length - 1) - 1) / (discountFactor - 1);
+    let normalization_constant = (Math.pow(discountFactor, weightedTimestamps.length) - 1) / (discountFactor - 1);
     const avgWeightedTimestamps = sumWeightedTimestamps / normalization_constant;
     const avgCharsPerWord = 5; // This doesn't include the space
     const wpm = (60 * 1000) / (avgWeightedTimestamps * avgCharsPerWord);
     console.log(
+      "Stats for ", char, ": ",
       avgWeightedTimestamps,
-      avgCharsPerWord,
+      avgCharsPerWord,  
       sumWeightedTimestamps,
       weightedTimestamps.length,
       wpm
@@ -423,7 +426,6 @@ function calculateStats() {
       .toString(16)
       .padStart(2, "0");
     const color = "#" + redComponent + greenComponent + "00";
-    console.log(greenComponent, redComponent, color);
 
     statsHTML += `<div style="color: ${color}">${
       char == " " ? "␣" : char
