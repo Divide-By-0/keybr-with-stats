@@ -17,6 +17,18 @@ tsc typingAnalysis.ts
 
 Open index.html in browser.
 
+## Improvements
+If you're interested in this and want to contribute, there are a lot of cool things you can add!
+- Add the ability for people to select different dictionaries or programming languages
+- Add the ability to make this an extension inside vscode, that tracks and gives real time stats as you work
+- Call the localstorage getter code on startup to populate your profile with your past stats
+- Make the UI nicer and closer to keybr's
+  - Lay out the keys in a grid instead of a list
+  - Put results in multiple coloumns to reduce scroll distance
+
+Done
+- Ignore keystrokes that take more than 5 seconds, to assume you took a break
+
 ## Info
 
 This code was ~80% written with GPT-4 in Cursor IDE. Here was the initial prompt:
